@@ -4,15 +4,15 @@ pipeline {
         jdk 'Java17'
         maven 'Maven3'
     }
-	environment {
-         APP_NAME = "register-app-pipeline"
-         RELEASE = "1.0.0"
-         DOCKER_USER = "fazil2664"
-         DOCKER_PASS = 'dockerhub'
-         IMAGE_NAME - "${DOCKER_USER}" +  "/" + "${APP_NAME}"
-         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-		 JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
-	}
+    environment {
+	    APP_NAME = "register-app-pipeline"
+            RELEASE = "1.0.0"
+            DOCKER_USER = "fazil2664"
+            DOCKER_PASS = 'dockerhub'
+            IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+            IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+	    JENKINS_API_TOKEN = credentials("JENKINS_API_TOKEN")
+    }
     stages{
         stage("Cleanup Workspace"){
                 steps {
@@ -22,7 +22,7 @@ pipeline {
 
         stage("Checkout from SCM"){
                 steps {
-                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/fasil7170/register-app'
+                    git branch: 'main', credentialsId: 'github', url: 'https://github.com/Ashfaque-9x/register-app'
                 }
         }
 
@@ -104,12 +104,12 @@ pipeline {
        failure {
              emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
                       subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", 
-                      mimeType: 'text/html',to: "rkftrip@gmail.com"
+                      mimeType: 'text/html',to: "ashfaque.s510@gmail.com"
       }
       success {
             emailext body: '''${SCRIPT, template="groovy-html.template"}''', 
                      subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Successful", 
-                     mimeType: 'text/html',to: "rkftrip@gmail.com"
+                     mimeType: 'text/html',to: "ashfaque.s510@gmail.com"
       }      
    }
 }
